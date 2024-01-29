@@ -1,0 +1,4 @@
+pandas==2.1.4
+bcrypt==3.2.2
+cryptography==38.0.4
+
