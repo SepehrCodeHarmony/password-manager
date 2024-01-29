@@ -8,6 +8,8 @@ def add():
     website = input("website: ")
     user_name = input("username: ")
     genpassword, gensalt = gen_password(user_name)
+    if user_will == 'setpass':
+        genpassword = input("\nset a password:\n\t").encode()
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
     print("your password is: ", genpassword.decode())
@@ -30,6 +32,7 @@ if __name__ == "__main__":
     string = input("add \nfind \nsee * \ndelete\n\n\t")
     db = Database("database/database.db")
     if string == "add":
+        user_will = input("genpass\nsetpass\n\n\t")
         add()
     elif string =="find":
         find()
