@@ -3,6 +3,7 @@ from pass_manager.save_pass import save_pass_in_database
 from pass_manager.read_pass import read_pass_from_database
 from database.database_manager import Database
 from data_manager.manage_data import delete_data
+from bins import create_neceseries
 
 def add():
     website = input("website: ")
