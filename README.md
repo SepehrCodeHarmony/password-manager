@@ -1,5 +1,4 @@
 JUST run the <<main.py>>
-otherwise it not gonna work correctly!!!
 
 ***after run <<main.py>> you will see some options: ***
 
@@ -12,9 +11,6 @@ otherwise it not gonna work correctly!!!
 4. delete: it will ask you the database number of a website that you can see in see * and it will delete the data all related to that row.
 
 
-and pleas read the requirements file ...
-
-This is a password manager that can help you generate strong and unique passwords and store them securely in a database. With this tool, you can avoid the hassle of remembering multiple passwords for different accounts and ensure that your online accounts are safe. The password manager can suggest a strong password and save it in a database securely. 
 
 This repository contains the source code for the password manager. You can clone the repository and run the code on your local machine.
 
