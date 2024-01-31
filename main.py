@@ -39,7 +39,7 @@ def delete():
 if __name__ == "__main__":
     string = input(f"{Fore.GREEN }add {Fore.WHITE}or {Fore.GREEN}add several\n{Fore.YELLOW}find \n{Fore.BLUE}see * \n{Fore.RED}delete\n\n\t{Style.RESET_ALL}")
     db = Database("database/database.db")
-    if "add" in string:
+    if "add" or 'sev' in string:
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
