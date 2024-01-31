@@ -10,12 +10,12 @@ def add(user_will):
     website = input("website: ")
     user_name = input("username: ")
     genpassword, gensalt = gen_password(user_name)
-    if user_will == 'setpass':
+    if 'set' in user_will:
         genpassword = input("\nset a password:\n\t").encode()
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
     print(Fore.WHITE + "your password is: " + Fore.GREEN+ genpassword.decode())
-    if "add" and "several" in string:
+    if "add" or "sev" in string:
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
