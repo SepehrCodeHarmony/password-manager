@@ -1,6 +1,8 @@
 import sqlite3
 import pandas as pd
 from pass_manager.read_pass import read_pass_from_database
+from colorama import Fore,Style
+from tabulate import tabulate
 
 class Database:
     def __init__(self, db_name):
@@ -55,14 +57,14 @@ class Database:
             token  = i[0]
             salt = i[1]
             decrypted_password = read_pass_from_database(token.encode(), salt.encode())
-            l.append(decrypted_password)
+            l.append(Fore.GREEN + decrypted_password + Style.RESET_ALL)
 
         #using pandas to print the data
         query = "SELECT * FROM passwords"
         df = pd.read_sql_query(query, self.conn)
         pd.set_option('display.max_rows', None)
         df.loc[:, 'password'] = l
-        print(df)
+        print(tabulate(df, headers = 'keys', tablefmt = 'psql'))
 
     def __delete__(self):
         self.conn.close()
