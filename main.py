@@ -7,7 +7,7 @@ from bins import create_neceseries
 from colorama import Fore,Style
 
 def add(user_will):
-    website = input("website: ")
+    website = input("website(topic): ")
     user_name = input("username: ")
     genpassword, gensalt = gen_password(user_name)
     if 'set' in user_will:
@@ -15,7 +15,7 @@ def add(user_will):
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
     print(Fore.WHITE + "your password is: " + Fore.GREEN+ genpassword.decode())
-    if "add" or "sev" in string:
+    if "add" and"several" in string:
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
@@ -37,16 +37,16 @@ def delete():
     delete_data(n)
 
 if __name__ == "__main__":
-    string = input(f"{Fore.GREEN }add {Fore.WHITE}or {Fore.GREEN}add several\n{Fore.YELLOW}find \n{Fore.BLUE}see * \n{Fore.RED}delete\n\n\t{Style.RESET_ALL}")
+    string = input(f"\n{Fore.GREEN }add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n\n\t{Style.RESET_ALL}")
     db = Database("database/database.db")
-    if "add" or 'sev' in string:
+    if "add" in string:
         BOLD = '\033[1m'
         END = '\033[0m'
-        user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
+        user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
         add(user_will)
     elif "find" in string:
         find()
-    elif "see *" in string:
+    elif "see" in string:
         see_all()
     elif "delete" in string:
         delete()
