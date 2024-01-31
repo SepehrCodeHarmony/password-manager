@@ -6,7 +6,7 @@ from data_manager.manage_data import delete_data
 from bins import create_neceseries
 from colorama import Fore,Style
 
-def add():
+def add(user_will):
     website = input("website: ")
     user_name = input("username: ")
     genpassword, gensalt = gen_password(user_name)
@@ -15,6 +15,12 @@ def add():
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
     print(Fore.WHITE + "your password is: " + Fore.GREEN+ genpassword.decode())
+    if "add" and "several" in string:
+        BOLD = '\033[1m'
+        END = '\033[0m'
+        user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
+        add(user_will)
+
 
 def find():
     website = input("websitename: ")
@@ -31,16 +37,16 @@ def delete():
     delete_data(n)
 
 if __name__ == "__main__":
-    string = input(f"{Fore.GREEN }add \n{Fore.YELLOW}find \n{Fore.BLUE}see * \n{Fore.RED}delete\n\n\t{Style.RESET_ALL}")
+    string = input(f"{Fore.GREEN }add {Fore.WHITE}or {Fore.GREEN}add several\n{Fore.YELLOW}find \n{Fore.BLUE}see * \n{Fore.RED}delete\n\n\t{Style.RESET_ALL}")
     db = Database("database/database.db")
-    if string == "add":
+    if "add" in string:
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
-        add()
-    elif string =="find":
+        add(user_will)
+    elif "find" in string:
         find()
-    elif string =="see *":
+    elif "see *" in string:
         see_all()
     elif "delete" in string:
         delete()
