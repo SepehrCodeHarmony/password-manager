@@ -4,7 +4,7 @@ from pass_manager.read_pass import read_pass_from_database
 from database.database_manager import Database
 from data_manager.manage_data import delete_data
 from bins import create_neceseries
-from colorama import Fore
+from colorama import Fore,Style
 
 def add():
     website = input("website: ")
@@ -31,10 +31,12 @@ def delete():
     delete_data(n)
 
 if __name__ == "__main__":
-    string = input("add \nfind \nsee * \ndelete\n\n\t")
+    string = input(f"{Fore.GREEN }add \n{Fore.YELLOW}find \n{Fore.BLUE}see * \n{Fore.RED}delete\n\n\t{Style.RESET_ALL}")
     db = Database("database/database.db")
     if string == "add":
-        user_will = input("genpass\nsetpass\n\n\t")
+        BOLD = '\033[1m'
+        END = '\033[0m'
+        user_will = input(f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
         add()
     elif string =="find":
         find()
