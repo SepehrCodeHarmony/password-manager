@@ -4,6 +4,7 @@ from pass_manager.read_pass import read_pass_from_database
 from database.database_manager import Database
 from data_manager.manage_data import delete_data
 from bins import create_neceseries
+from colorama import Fore
 
 def add():
     website = input("website: ")
@@ -13,13 +14,13 @@ def add():
         genpassword = input("\nset a password:\n\t").encode()
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
-    print("your password is: ", genpassword.decode())
+    print(Fore.WHITE + "your password is: " + Fore.GREEN+ genpassword.decode())
 
 def find():
     website = input("websitename: ")
     token, salt, username = db.get_one_data(website)
     decrypted_password = read_pass_from_database(token.encode(), salt.encode())
-    print("username: ", username, "\npassword: ", decrypted_password)
+    print(Fore.WHITE + "username: " + Fore.BLUE+ username+ Fore.WHITE +"\npassword: "+ Fore.GREEN + decrypted_password)
 
 def see_all():
     db.get_all_data()
