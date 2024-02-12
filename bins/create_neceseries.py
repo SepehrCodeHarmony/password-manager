@@ -1,4 +1,5 @@
 from cryptography.fernet import Fernet
+from user_auth.main import main
 import bcrypt
 
 original_key = Fernet.generate_key()
@@ -25,3 +26,9 @@ try:
 except FileNotFoundError:
     with open("bins/salt.bin", "wb") as file:  
         file.write(salt)
+
+try:
+    with open('user_auth/database/database.db') as file:
+        pass
+except FileNotFoundError:
+    main('sign up')
