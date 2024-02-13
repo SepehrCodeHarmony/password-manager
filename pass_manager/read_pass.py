@@ -18,7 +18,7 @@ def read_pass_from_database(token, gensalt):
                             password= password,
                             salt= salt,
                             desired_key_bytes=32,
-                            rounds= 100)
+                            rounds= 50)
 
     final_key = base64.urlsafe_b64encode(key)
 

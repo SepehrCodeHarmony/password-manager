@@ -15,11 +15,11 @@ def save_pass_in_database(genpassword, gensalt):
     with open('bins/salt.bin', 'rb') as file:
         salt = file.read()
 
-    key  = bcrypt.kdf(
+    key = bcrypt.kdf(
                             password= password,
                             salt= salt,
                             desired_key_bytes=32,
-                            rounds= 100)
+                            rounds= 50)
 
     final_key = base64.urlsafe_b64encode(key)
 
