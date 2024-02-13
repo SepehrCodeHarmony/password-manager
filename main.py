@@ -7,6 +7,7 @@ from bins import create_neceseries
 from colorama import Fore, Style
 from user_auth.main import main
 import pyperclip
+import sys
 
 def add(user_will):
     BOLD = '\033[1m'
@@ -37,6 +38,7 @@ def find():
 
 
 def see_all():
+    print('')
     a = main('sign in')
     if a:
         db.get_all_data()
@@ -49,18 +51,37 @@ def delete():
 
 
 if __name__ == "__main__":
-    string = input(
-        f"\n{Fore.GREEN}add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n{Style.RESET_ALL}\n\n\t")
+
     db = Database("database/database.db")
-    if "add" in string:
+
+    command = None
+    string = None
+
+    if len(sys.argv) >= 2:
+        command = sys.argv[1]
+        string = command
+
+    if len(sys.argv) < 2:
+        string = input(
+            f"\n{Fore.GREEN}add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n{Style.RESET_ALL}\n\t")
+   
+    if "add" in string or "add" in command:
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(
             f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
         add(user_will)
-    elif "find" in string:
+
+    elif "find" in string or "find" in command:
         find()
-    elif "see" in string:
+
+    elif "see" in string or "see" in command:
         see_all()
-    elif "delete" in string:
+        
+    elif "delete" in string or "delete" in command:
         delete()
+
+
+
+
+    
