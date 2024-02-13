@@ -64,7 +64,7 @@ class Database:
         df = pd.read_sql_query(query, self.conn)
         pd.set_option('display.max_rows', None)
         df.loc[:, 'password'] = l
-        print(tabulate(df, headers = 'keys', tablefmt = 'fancy_grid'))
+        print(tabulate(df, headers = 'keys'))
 
     def __delete__(self):
         self.conn.close()

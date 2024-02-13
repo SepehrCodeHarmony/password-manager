@@ -20,10 +20,10 @@ def add(user_will):
     token = save_pass_in_database(genpassword, gensalt)
     db.store_data(website, user_name, token.decode(), gensalt.decode())
     pyperclip.copy(genpassword.decode())
-    print(f"\n{BOLD}{Fore.GREEN}Password is copied. Paste it anywhere you'd like.{Style.RESET_ALL}{END}")
-    print("your password is: " + Fore.LIGHTGREEN_EX + genpassword.decode() + Style.RESET_ALL)
-    if "add" and "several" in string:
-        user_will = input(f"\n{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
+    print("your password is: " + BOLD +Fore.LIGHTCYAN_EX + genpassword.decode() + END +Style.RESET_ALL)
+    print(f"{BOLD}{Fore.GREEN}Password is copied. Paste it anywhere you'd like.{Style.RESET_ALL}{END}")
+    if "add" and "several" in command:
+        user_will = input(f"\n{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t")
         add(user_will)
 
 
@@ -38,7 +38,6 @@ def find():
 
 
 def see_all():
-    print('')
     a = main('sign in')
     if a:
         db.get_all_data()
@@ -54,7 +53,7 @@ if __name__ == "__main__":
 
     db = Database("database/database.db")
 
-    command = None
+    command = []
     string = None
 
     if len(sys.argv) >= 2:
@@ -69,7 +68,7 @@ if __name__ == "__main__":
         BOLD = '\033[1m'
         END = '\033[0m'
         user_will = input(
-            f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\n\t")
+            f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t")
         add(user_will)
 
     elif "find" in string or "find" in command:
@@ -80,8 +79,5 @@ if __name__ == "__main__":
         
     elif "delete" in string or "delete" in command:
         delete()
-
-
-
 
     
