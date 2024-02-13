@@ -63,6 +63,3 @@ if __name__ == "__main__":
         see_all()
     elif "delete" in string:
         delete()
-
-
-
