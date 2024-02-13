@@ -44,9 +44,11 @@ def see_all():
 
 
 def delete():
-    string = input("Enter the number of the entry you want to delete: ")
-    n = int(string.split()[0])
-    delete_data(n)
+    a = main('sign in')
+    if a:
+        string = input("Enter the number of the entry you want to delete: ")
+        n = int(string.split()[0])
+        delete_data(n)
 
 
 if __name__ == "__main__":
