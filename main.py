@@ -21,7 +21,7 @@ def make_url_std(url):
         for ext in valid_extensions:
             if domain_part.endswith(ext):
                 # Remove any path or query string after the extension
-                cleaned_url = f"{url.split('://')[0]}://{domain_part}{ext}"
+                cleaned_url = f"{url.split('://')[0]}://{domain_part}"
                 return cleaned_url[:50] if len(cleaned_url) > 50 else cleaned_url
 
     # If none of the above, assume it's a domain without any prefix or extension
