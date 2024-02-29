@@ -18,4 +18,4 @@ This repository contains the source code for the password manager. You can clone
 
 Feel free to contribute to the project by submitting pull requests or reporting issues. Your contributions are greatly appreciated!
 
-  keep in mind that no programm is 100% falwless. so all pull requests will be appreciated.
+  keep in mind that no programm is 100% flawless. so all pull requests will be appreciated.
