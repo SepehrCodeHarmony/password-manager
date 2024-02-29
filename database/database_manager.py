@@ -9,35 +9,39 @@ class Database:
         self.conn= sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS passwords(
-                   website TEXT,
+                   name TEXT,
+                   url TEXT,
                    username TEXT,
                    password TEXT,
+                   note TEXT,
                    salt TEXT
         );""")
         self.conn.commit()
 
-    def store_data(self, website, username, password, salt):
+    def store_data(self, name, url, username, password, Note, salt):
 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS passwords(
-                       website TEXT,
+                       name TEXT,
+                       url TEXT,
                        username TEXT,
                        password TEXT,
+                       note TEXT,
                        salt TEXT
         );""")
-        self.cursor.execute("INSERT INTO passwords VALUES(?,?,?,?)", [website, username, password, salt])
+        self.cursor.execute("INSERT INTO passwords VALUES(?,?,?,?,?,?)", [name, url, username, password, Note, salt])
 
 
         self.conn.commit()
 
-    def get_one_data(self, website):
+    def get_one_data(self, name):
         try:
             conn = sqlite3.connect("database/database.db")
             cursor = conn.cursor()
-            cursor.execute(f"SELECT * FROM passwords WHERE website = '{website}'")
+            cursor.execute(f"SELECT * FROM passwords WHERE website = '{name}'")
             data = cursor.fetchall()
-            token = data[0][2]
-            salt = data[0][3]
-            username = data[0][1]
+            token = data[0][3]
+            salt = data[0][4]
+            username = data[0][2]
             conn.close()
             return token, salt, username
         except IndexError:
@@ -62,6 +66,7 @@ class Database:
         #using pandas to print the data
         query = "SELECT * FROM passwords"
         df = pd.read_sql_query(query, self.conn)
+        df = df.iloc[:, :-1]
         pd.set_option('display.max_rows', None)
         df.loc[:, 'password'] = l
         print(tabulate(df, headers = 'keys'))
