@@ -71,5 +71,24 @@ class Database:
         df.loc[:, 'password'] = l
         print(tabulate(df, headers = 'keys'))
 
+
+    def get_data_for_csv(self):
+        raw_data = []
+        conn = sqlite3.connect("database/database.db")
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM passwords")
+        data = cursor.fetchall()
+        for i in range(len(data)):
+            name = data[i][0]
+            url = data[i][1]
+            username = data[i][2]
+            token = data[i][3]
+            note = data[i][4]
+            salt = data[i][5]
+
+            raw_data.append((name, url, username, token, note, salt))
+        conn.close()
+        return raw_data
+    
     def __delete__(self):
         self.conn.close()

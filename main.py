@@ -4,6 +4,7 @@ from pass_manager.read_pass import read_pass_from_database
 from database.database_manager import Database
 from data_manager.manage_data import delete_data
 from bins import create_neceseries
+from datetime import datetime
 from colorama import Fore, Style
 from user_auth.main import main
 import pyperclip
@@ -79,24 +80,56 @@ def delete():
 
 
 def import_csv():
-    pass_list = add_data_from_csv()
-    for i in pass_list:
-        name= i[0]
-        url = i[1]
-        if len(url) != 0:
-            url = make_url_std(url)
-        username = i[2]
-        password = i[3]
-        note = i[4]
-        if len(note) == 0:
-            note = '---'
-        genpassword, gensalt = gen_password(username)
-        genpassword = password.encode()
-        token = save_pass_in_database(genpassword, gensalt)
-        db.store_data(name, url,  username, token.decode(), note, gensalt.decode())
+    a = main('sign in')
+    if a:
+        pass_list = add_data_from_csv()
+        del pass_list[0]
+        for i in pass_list:
+            name= i[0]
+            url = i[1]
+            if len(url) != 0:
+                url = make_url_std(url)
+            username = i[2]
+            password = i[3]
+            note = i[4]
+            if len(note) == 0:
+                note = '---'
+            genpassword, gensalt = gen_password(username)
+            genpassword = password.encode()
+            token = save_pass_in_database(genpassword, gensalt)
+            db.store_data(name, url,  username, token.decode(), note, gensalt.decode())
 
-    else:
-        print(f'{Fore.GREEN}your passwords has been added successfully!{Style.RESET_ALL}')
+        else:
+            print(f'{Fore.GREEN}your passwords has been added successfully!{Style.RESET_ALL}')
+
+def export_init():
+    a = main('sign in')
+    csv_material =[]
+    if a:        
+        raw_data = db.get_data_for_csv()
+        for data in raw_data:
+            name = data[0]
+            url = data[1]
+            username = data[2]
+            token = data[3]
+            note = data[4]
+            salt = data[5]
+
+            decrypted_password = read_pass_from_database(token.encode(), salt.encode())
+            csv_material.append(((name, url, username, decrypted_password, note)))
+    
+    return csv_material
+
+def export_csv(data=list):
+    now = datetime.now()
+    formatted_date_time = now.strftime("%B_%d_%Y_%H:%M:%S")
+    start_p = 'name,url,username,password,note\n'
+    f = open('export/Passwords.csv', 'a').write(start_p)
+    for i in data:
+        string = f'{i[0]},{i[1]},{i[2]},{i[3]},{i[4]}\n'
+        f = open(f'export/Passwords_{formatted_date_time}.csv', 'a').write(string)
+
+        
 
 if __name__ == "__main__":
 
@@ -111,7 +144,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         string = input(
-            f"\n{Fore.GREEN}add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n{Style.RESET_ALL}import CSV{Fore.WHITE} --> {Fore.MAGENTA}import passwords from a csv file{Style.RESET_ALL}\n\t").strip()
+            f"\n{Fore.GREEN}add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n{Style.RESET_ALL}{Fore.BLUE}import CSV{Fore.WHITE} --> {Fore.MAGENTA}import passwords from a csv file{Style.RESET_ALL} \n{Fore.BLUE}Export{Fore.WHITE} --> {Fore.MAGENTA}it exports your passwords in a csv file(decrypted){Style.RESET_ALL}\n\t").strip()
    
     if "add" in string or "add" in command:
         BOLD = '\033[1m'
@@ -120,14 +153,19 @@ if __name__ == "__main__":
             f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t").strip()
         add(user_will)
 
-    elif "find" in string or "find" in command:
+    if "find" in string or "find" in command:
         find()
 
-    elif "see" in string or "see" in command:
+    if "see" in string or "see" in command:
         see_all()
         
-    elif "delete" in string or "delete" in command:
+    if "delete" in string or "delete" in command:
         delete()
 
-    elif "csv" or "import" in string:
+    if "csv" and "import" in string:
         import_csv()
+
+    if "export" in string.lower():
+        csv_material = export_init()
+        export_csv(csv_material)
+        print("the csv file is in secure-password-manager/export directory.")
