@@ -1,15 +1,17 @@
-from pass_manager.pass_generator import gen_password
-from pass_manager.save_pass import save_pass_in_database
+from import_from_google_pass.insert import add_data_from_csv
 from pass_manager.read_pass import read_pass_from_database
-from database.database_manager import Database
+from pass_manager.save_pass import save_pass_in_database
+from pass_manager.pass_generator import gen_password
 from data_manager.manage_data import delete_data
+from database.database_manager import Database
 from bins import create_neceseries
-from datetime import datetime
 from colorama import Fore, Style
 from user_auth.main import main
+from datetime import datetime
+from time import sleep
 import pyperclip
-from import_from_google_pass.insert import add_data_from_csv
 import sys
+
 
 def make_url_std(url):
         # Check if the input starts with a valid prefix
@@ -102,23 +104,35 @@ def import_csv():
         else:
             print(f'{Fore.GREEN}your passwords has been added successfully!{Style.RESET_ALL}')
 
+
 def export_init():
     a = main('sign in')
-    csv_material =[]
-    if a:        
-        raw_data = db.get_data_for_csv()
-        for data in raw_data:
-            name = data[0]
-            url = data[1]
-            username = data[2]
-            token = data[3]
-            note = data[4]
-            salt = data[5]
+    csv_material = []
 
+    if a:
+        raw_data = db.get_data_for_csv()
+        total_records = len(raw_data)
+
+        for i, data in enumerate(raw_data):
+            name, url, username, token, note, salt = data
             decrypted_password = read_pass_from_database(token.encode(), salt.encode())
-            csv_material.append(((name, url, username, decrypted_password, note)))
-    
+            csv_material.append((name, url, username, decrypted_password, note))
+
+            # Update the download bar
+            progress = (i + 1) / total_records
+            bar_length = 50
+            filled_length = int(bar_length * progress)
+            bar = f"[{'=' * filled_length}{' ' * (bar_length - filled_length)}] {progress * 100:.2f}%"
+            sys.stdout.write(f"\r{bar}")
+            sys.stdout.flush()
+
+            # Simulate some work (remove this line in your actual code)
+            sleep(0.01)
+
+        print()  # Add a newline after processing
+
     return csv_material
+
 
 def export_csv(data=list):
     now = datetime.now()
