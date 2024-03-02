@@ -124,7 +124,7 @@ def export_csv(data=list):
     now = datetime.now()
     formatted_date_time = now.strftime("%B_%d_%Y_%H:%M:%S")
     start_p = 'name,url,username,password,note\n'
-    f = open('export/Passwords.csv', 'a').write(start_p)
+    f = open(f'export/Passwords_{formatted_date_time}.csv', 'a').write(start_p)
     for i in data:
         string = f'{i[0]},{i[1]},{i[2]},{i[3]},{i[4]}\n'
         f = open(f'export/Passwords_{formatted_date_time}.csv', 'a').write(string)
