@@ -1,4 +1,4 @@
-from pass_manager.read_pass import read_pass_from_database
+from pass_manager.pass_manager import decrypt_pass
 from colorama import Fore,Style
 from tabulate import tabulate
 from time import sleep
@@ -61,7 +61,7 @@ class Database:
             total_records = len(passwords_and_salts)
             print('Decrypting passwords may take a moment due to security measures.\n')
             for i, (token, salt) in enumerate(passwords_and_salts):
-                decrypted_password = read_pass_from_database(token.encode(), salt.encode())
+                decrypted_password = decrypt_pass(token.encode(), salt.encode())
                 yield Fore.GREEN + decrypted_password + Style.RESET_ALL
 
                 # Update the progress bar

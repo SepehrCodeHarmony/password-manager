@@ -1,7 +1,7 @@
 
 
 
-def add_data_from_csv():
+def read_cav_file():
     from csv import reader
     db_path = input('drag and drop the goole csv file\
 here or just type the full path: ').replace("'", '').strip()
