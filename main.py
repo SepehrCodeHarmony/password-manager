@@ -234,7 +234,7 @@ if __name__ == "__main__":
         print(f"{BOLD}OPTIONS{END}")
         print("\tThe following options are understood:\n")
         print(f"\t{BOLD}add/add several{END}")
-        print("\t\t it will save one or several passwords ")
+        print("\t\tIt will save one or several passwords ")
         print(f"\n\t{BOLD}find{END}")
         print("\t\tFind a password with the website name.")
         print(f"\n\t{BOLD}all{END}")
