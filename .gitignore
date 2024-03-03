@@ -1,4 +1,6 @@
 __pycache__
 database.db
-*.bin
+key
+salt
+peper
 *.csv
