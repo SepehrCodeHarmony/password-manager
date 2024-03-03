@@ -83,9 +83,9 @@ def add(user_will):
         print(f"{BOLD}\nOPTIONS{END}")
         print("\tThe following options are understood:\n")
         print(f"\t{BOLD}gen{END}")
-        print("\t\tit will generate a strong password.")
+        print("\t\tIt will generate a strong password.")
         print(f"\n\t{BOLD}set{END}")
-        print("\t\tset your own password.")
+        print("\t\tSet your own password.")
         user_will = input().strip()
         add(user_will)
 
@@ -253,9 +253,9 @@ if __name__ == "__main__":
         print(f"\n{BOLD}OPTIONS{END}")
         print("\tThe following options are understood:\n")
         print(f"\t{BOLD}gen{END}")
-        print("\t\tit will generate a strong password.")
+        print("\t\tIt will generate a strong password.")
         print(f"\n\t{BOLD}set{END}")
-        print("\t\tset your own password.")
+        print("\t\tSet your own password.")
 
         user_will = input().strip()
         add(user_will)
