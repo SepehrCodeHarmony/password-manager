@@ -40,7 +40,7 @@ class Database:
         try:
             conn = sqlite3.connect("database/database.db")
             cursor = conn.cursor()
-            cursor.execute(f"SELECT * FROM passwords WHERE website = '{name}'")
+            cursor.execute(f"SELECT * FROM passwords WHERE name = '{name}'")
             data = cursor.fetchall()
             token = data[0][3]
             salt = data[0][4]

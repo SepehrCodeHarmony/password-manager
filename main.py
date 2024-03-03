@@ -97,9 +97,9 @@ def find():
     a = main('sign in')
 
     if a:
-        website = input("websitename: ")
+        name = input("websitename: ")
         # using Databse class to find a specific sign in data by website name
-        token, salt, username = db.get_one_data(website)
+        token, salt, username = db.get_one_data(name)
 
         # decrypting the encrypted password
         # decript_pass func is in ./pass_manager/pass_manager.py
