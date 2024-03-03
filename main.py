@@ -80,11 +80,11 @@ def add(user_will):
     
     # check if user wanted to added  more passwords or not
     if "add" and "several" in command or "add" and "several" in string:
-        print(f"{BOLD}OPTIONS{END}")
+        print(f"{BOLD}\nOPTIONS{END}")
         print("\tThe following options are understood:\n")
-        print(f"\t{BOLD}genpass{END}")
+        print(f"\t{BOLD}gen, generate password{END}")
         print("\t\tit will generate a strong password.")
-        print(f"\n\t{BOLD}setpass{END}")
+        print(f"\n\t{BOLD}set, set passpassword{END}")
         print("\t\tset your own password.")
         user_will = input().strip()
         add(user_will)
@@ -233,7 +233,9 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(f"{BOLD}OPTIONS{END}")
         print("\tThe following options are understood:\n")
-        print(f"\t{BOLD}find{END}")
+        print(f"\t{BOLD}add/add several{END}")
+        print("\t\t it will save one or several passwords ")
+        print(f"\n\t{BOLD}find{END}")
         print("\t\tFind a password with the website name.")
         print(f"\n\t{BOLD}all{END}")
         print("\t\tSee all saved passwords.")
@@ -248,11 +250,11 @@ if __name__ == "__main__":
     if "add" in string or "add" in command:
         BOLD = '\033[1m'
         END = '\033[0m'
-        print(f"{BOLD}OPTIONS{END}")
+        print(f"\n{BOLD}OPTIONS{END}")
         print("\tThe following options are understood:\n")
-        print(f"\t{BOLD}genpass{END}")
+        print(f"\t{BOLD}gen, generate password{END}")
         print("\t\tit will generate a strong password.")
-        print(f"\n\t{BOLD}setpass{END}")
+        print(f"\n\t{BOLD}set, set password{END}")
         print("\t\tset your own password.")
 
         user_will = input().strip()
