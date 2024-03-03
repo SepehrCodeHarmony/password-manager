@@ -191,7 +191,10 @@ def export_init():
 
         print()  # Add a newline after processing
 
-    return csv_material
+        return csv_material
+    
+    else:
+        sys.exit()
 
 
 # function create the csv file
@@ -212,7 +215,8 @@ def export_csv(data=list):
 if __name__ == "__main__":
 
     db = Database("database/database.db")
-
+    BOLD = '\033[1m'
+    END = '\033[0m'
     command = []
     string = None
 
@@ -221,9 +225,19 @@ if __name__ == "__main__":
         string = command
 
     if len(sys.argv) < 2:
-        string = input(
-            f"\n{Fore.GREEN}add {Style.RESET_ALL}or {Fore.GREEN}add several {Fore.WHITE}--> {Fore.MAGENTA}it will save one or several passwords {Style.RESET_ALL}\n{Fore.YELLOW}find {Fore.WHITE}--> {Fore.MAGENTA}find a password with website name{Style.RESET_ALL}\n{Fore.BLUE}see * {Fore.WHITE}--> {Fore.MAGENTA}see all the passwords{Style.RESET_ALL}\n{Fore.RED}delete {Fore.WHITE}--> {Fore.MAGENTA} delete a pasword{Style.RESET_ALL}\n{Style.RESET_ALL}{Fore.BLUE}import CSV{Fore.WHITE} --> {Fore.MAGENTA}import passwords from a csv file{Style.RESET_ALL} \n{Fore.BLUE}Export{Fore.WHITE} --> {Fore.MAGENTA}it exports your passwords in a csv file(decrypted){Style.RESET_ALL}\n\t").strip()
-   
+        print(f"{BOLD}OPTIONS{END}")
+        print("\tThe following options are understood:\n")
+        print(f"\t{BOLD}find{END}")
+        print("\t\tFind a password with the website name.")
+        print(f"\n\t{BOLD}all{END}")
+        print("\t\tSee all saved passwords.")
+        print(f"\n\t{BOLD}delete{END}")
+        print("\t\tDelete a specific password.")
+        print(f"\n\t{BOLD}import CSV{END}")
+        print("\t\tImport passwords from a CSV file.")
+        print(f"\n\t{BOLD}export{END}")
+        print("\t\tExport passwords to a CSV file (decrypted).")
+        string = input()
     if "add" in string or "add" in command:
         BOLD = '\033[1m'
         END = '\033[0m'
@@ -231,16 +245,16 @@ if __name__ == "__main__":
             f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t").strip()
         add(user_will)
 
-    if "find" in string or "find" in command:
+    if "find" in string.lower() or "find" in command:
         find()
 
-    if "see" in string or "see" in command:
+    if "all" in string.lower() or "all" in command:
         see_all()
         
-    if "delete" in string or "delete" in command:
+    if "delete" in string.lower() or "delete" in command:
         delete()
 
-    if "csv" and "import" in string:
+    if "csv" and "import" in string.lower() or "csv" and "import" in command:
         import_csv()
 
     if "export" in string.lower():
