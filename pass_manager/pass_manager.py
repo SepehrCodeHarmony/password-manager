@@ -4,15 +4,15 @@ import base64
 
 def encrypt_pass(genpassword, gensalt):
 
-    with open('bins/peper.bin', 'rb') as file:
+    with open('bins/peper', 'rb') as file:
         peper = file.read()
 
     password_1 = gensalt + peper + genpassword
     
-    with open('bins/key.bin', 'rb') as file:
+    with open('bins/key', 'rb') as file:
         password = file.read()
 
-    with open('bins/salt.bin', 'rb') as file:
+    with open('bins/salt', 'rb') as file:
         salt = file.read()
 
     key = bcrypt.kdf(
@@ -30,13 +30,13 @@ def encrypt_pass(genpassword, gensalt):
 
 def decrypt_pass(token, gensalt):
 
-    with open('bins/peper.bin', 'rb') as file:
+    with open('bins/peper', 'rb') as file:
         peper = file.read()
 
-    with open('bins/key.bin', 'rb') as file:
+    with open('bins/key', 'rb') as file:
         password = file.read()
 
-    with open('bins/salt.bin', 'rb') as file:
+    with open('bins/salt', 'rb') as file:
         salt = file.read()
 
     key  =bcrypt.kdf(
