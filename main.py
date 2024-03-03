@@ -80,7 +80,13 @@ def add(user_will):
     
     # check if user wanted to added  more passwords or not
     if "add" and "several" in command or "add" and "several" in string:
-        user_will = input(f"\n{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate an strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t").strip()
+        print(f"{BOLD}OPTIONS{END}")
+        print("\tThe following options are understood:\n")
+        print(f"\t{BOLD}genpass{END}")
+        print("\t\tit will generate a strong password.")
+        print(f"\n\t{BOLD}setpass{END}")
+        print("\t\tset your own password.")
+        user_will = input().strip()
         add(user_will)
 
 
@@ -237,12 +243,19 @@ if __name__ == "__main__":
         print("\t\tImport passwords from a CSV file.")
         print(f"\n\t{BOLD}export{END}")
         print("\t\tExport passwords to a CSV file (decrypted).")
-        string = input()
+        string = input().strip()
+
     if "add" in string or "add" in command:
         BOLD = '\033[1m'
         END = '\033[0m'
-        user_will = input(
-            f"{BOLD}{Fore.LIGHTBLUE_EX}genpass {END}{Fore.GREEN}--> {Fore.MAGENTA}it will generate a strong password\n{BOLD}{Fore.LIGHTBLUE_EX}setpass {END}{Fore.GREEN}--> {Fore.MAGENTA}set your own password{Style.RESET_ALL}\n\t").strip()
+        print(f"{BOLD}OPTIONS{END}")
+        print("\tThe following options are understood:\n")
+        print(f"\t{BOLD}genpass{END}")
+        print("\t\tit will generate a strong password.")
+        print(f"\n\t{BOLD}setpass{END}")
+        print("\t\tset your own password.")
+
+        user_will = input().strip()
         add(user_will)
 
     if "find" in string.lower() or "find" in command:
