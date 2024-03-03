@@ -82,9 +82,9 @@ def add(user_will):
     if "add" and "several" in command or "add" and "several" in string:
         print(f"{BOLD}\nOPTIONS{END}")
         print("\tThe following options are understood:\n")
-        print(f"\t{BOLD}gen, generate password{END}")
+        print(f"\t{BOLD}gen{END}")
         print("\t\tit will generate a strong password.")
-        print(f"\n\t{BOLD}set, set passpassword{END}")
+        print(f"\n\t{BOLD}set{END}")
         print("\t\tset your own password.")
         user_will = input().strip()
         add(user_will)
@@ -252,9 +252,9 @@ if __name__ == "__main__":
         END = '\033[0m'
         print(f"\n{BOLD}OPTIONS{END}")
         print("\tThe following options are understood:\n")
-        print(f"\t{BOLD}gen, generate password{END}")
+        print(f"\t{BOLD}gen{END}")
         print("\t\tit will generate a strong password.")
-        print(f"\n\t{BOLD}set, set password{END}")
+        print(f"\n\t{BOLD}set{END}")
         print("\t\tset your own password.")
 
         user_will = input().strip()
