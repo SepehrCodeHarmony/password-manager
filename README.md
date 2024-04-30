@@ -1,3 +1,4 @@
+just a simple project for fun
 # password manager project
 
 JUST run the <<main.py>>
