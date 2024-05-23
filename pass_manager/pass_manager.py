@@ -1,6 +1,9 @@
 from cryptography.fernet import Fernet
+from cryptography.fernet import InvalidToken
+from colorama import Fore
 import bcrypt
 import base64
+import sys
 
 def encrypt_pass(genpassword, gensalt):
 
@@ -48,8 +51,13 @@ def decrypt_pass(token, gensalt):
     final_key = base64.urlsafe_b64encode(key)
 
     f = Fernet(final_key)
-    decrypted_password = f.decrypt(token).decode()
-
+    try:
+        decrypted_password = f.decrypt(token).decode()
+    except InvalidToken:
+        BOLD = '\033[1m'
+        END = '\033[0m'
+        print(Fore.RED + f'{BOLD}the token is not correct{END}')
+        sys.exit()
 
     l = len(gensalt.decode()) + len(peper)
     decrypted_password = decrypted_password[l:]
