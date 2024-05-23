@@ -1,9 +1,21 @@
 from cryptography.fernet import Fernet
 from cryptography.fernet import InvalidToken
-from colorama import Fore
+from colorama import Fore, Style
 import bcrypt
 import base64
 import sys
+
+"""
+there is 2 salt here
+
+the 1st one --> this taken as an argument. title 'gensalt'. and it's different for each password.
+this will be saved in data base in a column named salt for each password
+
+the 2nd  one --> this is wroten in this directory "bins/salt". title 'salt'
+
+1st(gensalt) is used manually at the beginnig of the password
+2nd salt is used for kdf using cryptography library
+"""
 
 def encrypt_pass(genpassword, gensalt):
 
@@ -56,7 +68,7 @@ def decrypt_pass(token, gensalt):
     except InvalidToken:
         BOLD = '\033[1m'
         END = '\033[0m'
-        print(Fore.RED + f'{BOLD}the token is not correct{END}')
+        print(Fore.RED + f'{BOLD}InvalidToken: the token was encrypted with another key{END}' + Style.NORMAL)
         sys.exit()
 
     l = len(gensalt.decode()) + len(peper)
