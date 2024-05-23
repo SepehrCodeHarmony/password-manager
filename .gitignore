@@ -4,3 +4,4 @@ key
 salt
 peper
 *.csv
+.venv
